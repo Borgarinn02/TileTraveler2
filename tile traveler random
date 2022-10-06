@@ -1,12 +1,15 @@
 from typing import Tuple
-
+import random
 
 # Constants
 NORTH = "n"
 EAST = "e"
 SOUTH = "s"
 WEST = "w"
-
+Yes = "y"
+No = "n"
+random1 = ([NORTH, EAST, SOUTH, WEST])
+random2 = ([Yes,No])
 STARTING_LOCATION = (1, 1)
 FINAL_DESTINATION = (3, 1)
 last = (0, 0)
@@ -14,6 +17,7 @@ last = (0, 0)
 def main():
     
     money= []
+    initialize(random)
     location = STARTING_LOCATION
     while location != FINAL_DESTINATION:
         
@@ -22,6 +26,14 @@ def main():
     print(f"Victory! Total coins {sum(money)}.")
     play_again()
 
+def initialize(random) -> None:
+    while 1 != 0: 
+        the_seed = input("Input seed: ")
+        if the_seed.isdigit:
+            random.seed(int(the_seed))
+        else:
+            the_seed = int(input("Input seed: "))
+        return
 def play_one_move(location: Tuple[int],money) -> Tuple[int]:
     """Plays one move of the game.
     Returns updated location.
@@ -64,7 +76,9 @@ def find_directions(location: Tuple[int]) -> Tuple[str]:
 
 def get_direction(valid_directions: Tuple[str]) -> str:
     print_directions(valid_directions)
-    return input("Direction: ").lower()
+    travel = random.choice(random1)
+    print("Direction:", travel)
+    return travel
 
 
 def print_directions(available_directions: Tuple[str]) -> None:
@@ -111,7 +125,8 @@ def coins(location, money):
     if location != (1,2) and location != (2,2) and location != (2,3) and location != (3,2):
         return money
         
-    wantto = input("Pull a lever (y/n): ")
+    wantto = random.choice(random2)
+    print("Pull a lever (y/n):", wantto)
     if wantto == "y":
         money.append(uno)
         print(f"You received 1 coin, your total is now {sum(money)}.")
@@ -121,11 +136,17 @@ def coins(location, money):
 
 
 
-
 def play_again():
     wantto = input("Play again (y/n): ")
     if wantto == "y":
         main()
+    elif wantto == "n":
+        pass
+
+if __name__ == "__main__":
+    main()
+
+
     elif wantto == "n":
         pass
 if __name__ == "__main__":
